@@ -1,0 +1,31 @@
+<div class="row">
+	<div class="col-sm-12">
+		<div class="card fluid">
+			<h1>Weather forecast</h1>
+			<h2>Katowice, PL</h2>
+
+			<div class="row">
+				<div class="col-sm-3" *ngFor="let item of current$ | async">
+					<div class="card fluid">
+						<div class="section">
+							Time point: <strong>{{ item.timePoint }}</strong>
+						</div>
+						<div class="section">
+							Cloud cover: <strong>{{ item.cloudCover }}</strong>
+						</div>
+						<div class="section">
+							Forecast: <strong>{{ item.forecast }}</strong>
+						</div>
+						<div class="section">
+							Wind: <strong>{{ item.wind.direction }} / {{ item.wind.speed | speedUnit }}</strong>
+						</div>
+						<div class="section">
+							Temperature: <strong>{{ item.temperature | temperatureUnit }}</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
