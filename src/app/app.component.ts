@@ -1,15 +1,10 @@
-import { Component } from '@angular/core';
-
-import { WeatherService } from './weather.service';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html'
+    template: `
+		<app-weather-widget></app-weather-widget>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
-    readonly current$ = this.weather.getCurrent();
-
-    constructor(
-        public weather: WeatherService
-    ) { }
-}
+export class AppComponent { }

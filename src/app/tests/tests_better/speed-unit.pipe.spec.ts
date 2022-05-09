@@ -1,18 +1,18 @@
-import { SpeedUnitPipe } from '../speed-unit.pipe';
-import { Environment } from '../app.module';
 import { TestBed } from '@angular/core/testing';
-import { UNITS } from '../models';
+import { MockProvider } from 'ng-mocks';
 
-describe('SpeedUnitPipe', () => {
+import { Environment, UNITS } from '../../weather-widget/models';
+import { SpeedUnitPipe } from '../../weather-widget/speed-unit.pipe';
+
+describe('[BETTER] SpeedUnitPipe', () => {
     function setup({ customEnvironment } = { customEnvironment: { apiUrl: null, system: null } }) {
         TestBed.configureTestingModule({
-            providers: [ Environment, SpeedUnitPipe ]
+            providers: [ MockProvider(Environment, customEnvironment) ]
         });
 
-        TestBed.overrideProvider(Environment, { useValue: customEnvironment });
-        TestBed.overrideProvider(SpeedUnitPipe, { useFactory: (arg) => new SpeedUnitPipe(arg), deps: [ Environment ] });
-
-        const pipe = TestBed.inject(SpeedUnitPipe);
+		const pipe = new SpeedUnitPipe(
+			TestBed.inject(Environment)
+		);
 
         return { pipe };
     }

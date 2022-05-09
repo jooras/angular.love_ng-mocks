@@ -3,16 +3,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "paths": {
-      "@core/*": [
-        "projects/core/*",
-        "projects/core"
-      ],
-      "@readings/*": [
-        "projects/readings/*",
-        "projects/readings"
-      ]
-    },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,

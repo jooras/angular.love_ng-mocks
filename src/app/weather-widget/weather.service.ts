@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 
-import { Environment } from './app.module';
+import { Environment } from './models';
+import { BehaviorSubject } from 'rxjs';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class WeatherService {
     readonly daysNumber = 6;
     readonly params = { lon: '19.02', lat: '50.26', unit: 'metric', output: 'json', product: 'civil' };
@@ -16,7 +15,7 @@ export class WeatherService {
         private environment: Environment
     ) { }
 
-    getCurrent() {
+    fetchCurrent(): Promise<any> {
         return this.http
             .get<{ dataseries: any[] }>(
                 this.environment.apiUrl,
@@ -27,7 +26,8 @@ export class WeatherService {
                     .slice(0, this.daysNumber)
                     .map(series => this.mapSeries(series))
                 )
-            );
+            )
+            .toPromise();
     }
 
     mapSeries(series) {

@@ -1,9 +1,21 @@
-import { TemperatureUnitPipe } from '../temperature-unit.pipe';
-import { UNITS } from '../models';
+import { TestBed } from '@angular/core/testing';
 
-describe('TemperatureUnitPipe', () => {
+import { Environment, UNITS } from '../../weather-widget/models';
+import { SpeedUnitPipe } from '../../weather-widget/speed-unit.pipe';
+
+
+describe('[OLD] SpeedUnitPipe', () => {
     function setup({ customEnvironment } = { customEnvironment: { apiUrl: null, system: null } }) {
-        const pipe = new TemperatureUnitPipe(customEnvironment);
+        TestBed
+			.configureTestingModule({
+				providers: [
+					{ provide: Environment, useValue: customEnvironment }
+				]
+			});
+
+        const pipe = new SpeedUnitPipe(
+			TestBed.inject(Environment)
+		);
 
         return { pipe };
     }
@@ -24,7 +36,7 @@ describe('TemperatureUnitPipe', () => {
 
             const result = pipe.transform(sampleValue);
 
-            expect(result).toEqual(`${sampleValue} ${UNITS.imperial.temperature}`);
+            expect(result).toEqual(`${sampleValue} ${UNITS.imperial.speed}`);
         });
 
         it('should handle metric system', () => {
@@ -35,7 +47,7 @@ describe('TemperatureUnitPipe', () => {
 
             const result = pipe.transform(sampleValue);
 
-            expect(result).toEqual(`${sampleValue} ${UNITS.metric.temperature}`);
+            expect(result).toEqual(`${sampleValue} ${UNITS.metric.speed}`);
         });
     });
 

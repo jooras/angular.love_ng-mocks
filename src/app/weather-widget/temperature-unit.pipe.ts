@@ -1,18 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { Environment } from './app.module';
+import { Environment } from './models';
 import { UNITS } from './models';
 
 @Pipe({
-    name: 'speedUnit'
+    name: 'temperatureUnit'
 })
-export class SpeedUnitPipe implements PipeTransform {
+export class TemperatureUnitPipe implements PipeTransform {
     readonly defaultUnit: string;
 
     constructor(
         private environment: Environment
     ) {
-        this.defaultUnit = UNITS[environment.system]?.speed;
+        this.defaultUnit = UNITS[environment.system]?.temperature;
     }
 
     transform(value: string, ...args: string[]): string | null {
